@@ -38,6 +38,7 @@ const persona = new Cliente('Pedro', 20000);
 
 console.log(persona.tipoCliente());
 
+
 // String
 const nombre1 = 'Pedro';
 console.log(nombre1);
