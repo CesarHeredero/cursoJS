@@ -60,6 +60,36 @@ class Interfaz {
         // insertar al html
         gastosListado.appendChild(li);
     }
+    //comprueba el prsupueto restante
+    presupuestoRestante(cantidad) {
+        const restante = document.querySelector('span#restante');
+        const presupuestoRestanteUsuario = cantidadPresuspuesto.presupuestoRestante(cantidad);
+        
+        restante.innerHTML = `${presupuestoRestanteUsuario}`;
+        this.comprobarPresupuesto();
+    }
+
+    // Cambia de color el presupuesto restante
+    comprobarPresupuesto() {
+        const presupuestoTotal = cantidadPresuspuesto.presupuesto;
+        const presupuestoRestante = cantidadPresuspuesto.restante;
+
+        // comprobar el 25% del gasto
+        if (presupuestoTotal / 4 > presupuestoRestante) {
+            const restante = document.querySelector('.restante');
+            restante.classList.remove('alert-success', 'alert-warning');
+            restante.classList.add('alert-danger');
+        } else if  (presupuestoTotal / 2 > presupuestoRestante) {
+            const restante = document.querySelector('.restante');
+            restante.classList.remove('alert-success', 'alert-danger');
+            restante.classList.add('alert-warning');
+        } else {
+            const restante = document.querySelector('.restante');
+            restante.classList.remove('alert-warning', 'alert-danger');
+            restante.classList.add('alert-success');
+        }
+    }
+    
 }
 
 // Event Listeners
@@ -91,5 +121,6 @@ formulario.addEventListener('submit', function(e) {
     } else {
         ui.imprimirMensaje('se agrego gasto', 'correcto');
         ui.agregarGastoListado(nombreGasto, cantidadGasto);
+        ui.presupuestoRestante(cantidadGasto);
     }
 })
